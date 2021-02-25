@@ -33,7 +33,13 @@ function App() {
   };
 
   const searchItem = () => {
-    setSearched(itemsArray.filter((item) => item.recipe === searchValue));
+    setSearched(itemsArray.filter((item) => {if (searchValue == null) {
+      return item
+    }
+  else if (item.recipe.toLowerCase().includes(searchValue.toLowerCase())) {
+    return item
+  } }
+     ));
   };
 
   const sortlistt = () => {
@@ -75,9 +81,9 @@ function App() {
     <div className="container">
       <Card title="Search">
         <div className="item-row">
-          <Input className="inputt" type="text" name="search" onChange={(e) => setSearchValue(e.target.value)} />
+          <Input className="inputt" placeholder="Search" type="text" name="search" onChange={(e) => setSearchValue(e.target.value)} />
         </div>
-
+        
         <div className="item-row">
           <Button onClick={searchItem}>Search</Button>
         </div>
@@ -92,7 +98,7 @@ function App() {
       <Card title="Add Recipe">
         <div className="item-row">
           <label>Recipe Name</label>
-          <Input className="inputt" type="text" name="recipe" onChange={(e) => setRecipe(e.target.value)} />
+          <Input className="inputt" type="text"   name="recipe" onChange={(e) => setRecipe(e.target.value)} />
         </div>
         <div className="item-row">
           <label>Description</label>
